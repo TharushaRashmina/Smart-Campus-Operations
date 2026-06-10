@@ -13,6 +13,7 @@ import './incident.css';
 const STATUS_OPTIONS = ['OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED', 'REJECTED'];
 const PRIORITY_OPTIONS = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 const CATEGORY_OPTIONS = ['ELECTRICAL', 'NETWORK', 'PROJECTOR', 'COMPUTER', 'FACILITY_DAMAGE', 'PLUMBING', 'AIR_CONDITIONING', 'SAFETY', 'OTHER'];
+const CATEGORY_SLICE_COLORS = ['#7c3aed', '#06b6d4', '#22c55e', '#f59e0b', '#ef4444', '#3b82f6', '#a855f7', '#14b8a6', '#f97316'];
 
 function formatDate(value) {
     if (!value) {
@@ -213,7 +214,6 @@ function AdminTicketManagementPage() {
     const [updatingStatus, setUpdatingStatus] = useState(false);
     const [showAnalytics, setShowAnalytics] = useState(false);
     const [trendRangeDays, setTrendRangeDays] = useState(7);
-    const categorySliceColors = ['#7c3aed', '#06b6d4', '#22c55e', '#f59e0b', '#ef4444', '#3b82f6', '#a855f7', '#14b8a6', '#f97316'];
 
     const transitionOptions = useMemo(() => getNextStatuses(selectedTicket?.status), [selectedTicket]);
     const actionsLocked = isLockedForAdminActions(selectedTicket?.status);
@@ -373,14 +373,14 @@ function AdminTicketManagementPage() {
             return {
                 ...item,
                 percentage: portion * 100,
-                color: categorySliceColors[index % categorySliceColors.length],
+                color: CATEGORY_SLICE_COLORS[index % CATEGORY_SLICE_COLORS.length],
                 path: describePieSlice(88, 88, 70, startAngle, endAngle),
                 isFullCircle: values.length === 1
             };
         });
 
         return { total, slices };
-    }, [analytics.categoryChart, categorySliceColors]);
+    }, [analytics.categoryChart]);
 
     const downloadAnalyticsPdf = () => {
         const report = {
