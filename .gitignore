@@ -1,0 +1,26 @@
+# Backend (Java / Maven)
+backend/target/
+backend/*.log
+backend/*.class
+
+# Sensitive config - IMPORTANT
+backend/src/main/resources/application-local.properties
+backend/.env
+
+# Frontend (Node / React)
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS files
+.DS_Store
+Thumbs.db
